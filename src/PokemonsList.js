@@ -12,15 +12,13 @@ function PokemonsList({getPokemons, pokemons, loading}) {
   }, [getPokemons]);
 
   return (
-    <div >
-      Pokemons
-      <div>{!loading ? <div>
-      	{pokemons.pokemons.map(poke => <ul key={poke.id}>
-      		<li>
-      			<span>{poke.name}</span>
+    <div className="pokedex">
+      <h1>Pokedex</h1>
+      <div>{!loading ? <ul className="pokemons">
+      	{pokemons.pokemons.map(poke => <li key={poke.id} className="pokemon">
+      			<span>{poke.name.charAt(0).toUpperCase() + poke.name.slice(1)}</span>
       			<img src={poke.sprites.front_default}/>
-      		</li>
-      	</ul>)}</div> : <p>
+      	</li>)}</ul> : <p>
       		<img src={spinner} className="App-logo" alt="logo" />
       	</p>}
       </div>

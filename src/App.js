@@ -16,11 +16,10 @@ function App() {
   return (
     <div className="App">
       <Provider store={store}>
-        {/*<header className="App-header">
-        </header>*/}
+        <img src={logo} className="App-logo" alt="logo" style={{width: "100%"}}/>
 
-        <img src={logo} className="App-logo" alt="logo" />
         <PokemonsList />
+
       </Provider>
     </div>
   );

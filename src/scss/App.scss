@@ -17,8 +17,15 @@ code {
 
 // variables
 
+
+.pokedex{
+  h1{
+    text-align: center;
+  }
+}
+
 .App {
-  text-align: center;
+  
 }
 
 .App-logo {
@@ -60,15 +67,33 @@ img{
   vertical-align: middle;
 }
 
+li.pokemon{
+  border:1px solid #dadada;
+  width: 200px;
+  border-radius: 10px;
+  list-style: none;
+  display: inline-block;
+  margin:10px 10px;
+  text-align: center;
+
+  &:hover{
+    border:1px solid black;
+    cursor: pointer;
+    background: #efefef;
+  }
+}
+
 // mobile styles
 @media screen and (min-width: 620px){
 
 }
 
 @media screen and (min-width: 960px){
-  
+
 }
 
 @media screen and (min-width: 1200px){
-  
+  .pokemons{
+    text-align: center
+  }
 }
