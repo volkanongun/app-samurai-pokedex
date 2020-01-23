@@ -16,7 +16,7 @@ export const getPokemons = (limit) => async dispatch => {
 			// console.log(res.data.results[i].url)
 
 			const pokeres = await axios.get(res.data.results[i].url)
-			// console.log(pokeres.data);
+			console.log(pokeres.data);
 
 			pokemons.push(pokeres.data)
  

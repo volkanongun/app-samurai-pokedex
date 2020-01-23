@@ -3,7 +3,7 @@ import React,{useEffect} from 'react';
 import {connect} from 'react-redux';
 import {getPokemons} from './actions/pokemons';
 
-import loadingGif from './img/loading.gif';
+import spinner from './img/spinner.gif';
 
 function PokemonsList({getPokemons, pokemons, loading}) {
 
@@ -14,7 +14,16 @@ function PokemonsList({getPokemons, pokemons, loading}) {
   return (
     <div >
       Pokemons
-      <div>{loading ? <p><img src={loadingGif} className="App-logo" alt="logo" /></p> : pokemons.pokemons.map(poke => <p key={poke.id}>{poke.name}</p>)}</div>
+      <div>{!loading ? <div>
+      	{pokemons.pokemons.map(poke => <ul key={poke.id}>
+      		<li>
+      			<span>{poke.name}</span>
+      			<img src={poke.sprites.front_default}/>
+      		</li>
+      	</ul>)}</div> : <p>
+      		<img src={spinner} className="App-logo" alt="logo" />
+      	</p>}
+      </div>
     </div>
   );
 }
