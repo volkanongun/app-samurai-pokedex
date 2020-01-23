@@ -1,6 +1,8 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 
+import capitalize from '../utils';
+
 function PokemonSmall({pokemon}){
 
 	const clickHandler = function(e){
@@ -8,9 +10,9 @@ function PokemonSmall({pokemon}){
 		console.log(pokemon.id)
 	}
 
-	return <li key={pokemon.id} className="pokemon">
+	return <li className="pokemon">
 		<Link to={`/pokemon/${pokemon.id}`}>
-			<span>{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</span>
+			<span>{capitalize(pokemon.name)}</span>
 			<img src={pokemon.sprites.front_default}/>
 		</Link>
   	</li>

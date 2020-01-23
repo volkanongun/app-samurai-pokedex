@@ -88,9 +88,38 @@ li.pokemon{
   }
 }
 
+.pokemon-image{
+  width: 300px;
+  display: flex;
+}
+
+.pokemon-stats{
+  display: flex;
+  align-items: center;
+  flex-direction:column;
+  
+  > div{
+    margin-bottom: 2rem;
+  }
+
+  .stats{
+    background: #efefef;
+    padding:4rem;
+    border-radius:10px
+  }
+  
+  .image{
+    background: #efefef;
+    padding:4rem;
+    border-radius:10px
+  }
+}
+
 // mobile styles
 @media screen and (min-width: 620px){
-
+  .pokemon-stats{
+    
+  }
 }
 
 @media screen and (min-width: 960px){
