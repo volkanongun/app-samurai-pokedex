@@ -9,28 +9,25 @@ function Pokemon({match, pokemons}){
 	
 	const poke = pokemons.pokemons.filter(poke => poke.id === parseInt(match.params.id))[0];
 
-	const stats = poke.stats.map(stat => {
-		return <h4><strong>{stat.stat.name}</strong> : {stat.base_stat}</h4>
-	})
+	const stats = poke ? poke.stats.map((stat,key) => {
+		return <h4 key={key}><strong>{stat.stat.name}</strong> : {stat.base_stat}</h4>
+	}) : null
 
 	console.log(poke);
 
 	return <div>
-		{ poke ? <div class="container">
+		{ poke ? <div className="container">
 
-			  <div class="row">
-			    <div class="twelve columns">
+			  <div className="row">
+			    <div className="twelve columns">
 			    	<div className="pokemon-stats">
 				
 						<div className="image">
 							<h4>Pokemon Name : {capitalize(poke.name)}</h4>
-							<h4>ID : {poke.id}</h4>
-							<img className="pokemon-image" src={poke.sprites.front_default}/>
-						</div>
-
-						<div className="actions"> 
-							<h4>Actions : </h4>
-							<p><button className="button">Add to my pokemon list</button></p>
+							<div className="actions"> 
+								<p><button className="button">Add to my pokemon list</button></p>
+							</div>
+							<img className="pokemon-image" alt={poke.name} src={poke.sprites.front_default}/>
 						</div>
 
 						<div className="stats">

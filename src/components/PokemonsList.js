@@ -17,7 +17,7 @@ function PokemonsList({getPokemons, pokemons, loading}) {
     <div className="pokedex">
       <h1>Pokedex</h1>
       <div>{!loading ? <ul className="pokemons">
-      	{pokemons.pokemons.map(poke => <PokemonSmall pokemon={poke} key={poke.id}></PokemonSmall>)}</ul> : <img src={spinner} className="App-logo" alt="logo" />}
+      	{pokemons.pokemons.map((poke,key) => <PokemonSmall pokemon={poke} key={key}></PokemonSmall>)}</ul> : <img src={spinner} className="App-logo" alt="logo" />}
       </div>
     </div>
   );
