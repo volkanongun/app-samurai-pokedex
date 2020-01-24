@@ -8,11 +8,12 @@ import {
 	EMPTY_POKEMONS_LIST
 } from './types';
 
-const pokemons = []
 
 export const getPokemons = (limit) => async dispatch => {
 
 	try{
+		const pokemons = [];
+
 		const res = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=${limit}`)
 
 		// console.log(res.data.results, " ∆∆∆∆∆");
