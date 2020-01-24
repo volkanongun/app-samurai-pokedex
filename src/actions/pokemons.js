@@ -1,6 +1,11 @@
 import axios from 'axios'
 
-import {POKEMONS_LOADED, POKEMONS_FAILED} from './types';
+import {
+	POKEMONS_LOADED, 
+	POKEMONS_FAILED, 
+	POKEMON_LOADED, 
+	POKEMON_FAILED
+} from './types';
 
 const pokemons = []
 
@@ -37,3 +42,27 @@ export const getPokemons = (limit) => async dispatch => {
 		})
 	}
 }
+
+export const getPokemon = (id) => async dispatch => {
+
+	try{
+		const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)
+
+		console.log(res.data, " ∆∆∆")
+
+		dispatch({
+			type: POKEMON_LOADED,
+			payload : res.data
+		})
+
+	}catch(err){
+		console.log(err)
+
+		dispatch({
+			type: POKEMON_FAILED,
+			payload : err
+		})
+	}
+}
+
+
