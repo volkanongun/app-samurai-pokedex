@@ -1,17 +1,38 @@
-import React from 'react';
+import React,{useState} from 'react';
 import spinner from '../img/spinner.gif';
 
+import {Link} from "react-router-dom";
 import {connect} from 'react-redux';
 
+import axios from 'axios'
+
+import Modal from './Modal';
 import capitalize from '../utils';
 
-function Pokemon({match, pokemons}){
+let moveDetail;
+
+function Pokemon({match, pokemons, history}){
 	
+	const [showModal, setShowModal] = useState(false);
+
 	const poke = pokemons.pokemons.filter(poke => poke.id === parseInt(match.params.id))[0];
 
 	const stats = poke ? poke.stats.map((stat,key) => {
-		return <h4 key={key}><strong>{stat.stat.name}</strong> : {stat.base_stat}</h4>
-	}) : null
+		return <h6 key={key}><strong>{stat.stat.name}</strong> : {stat.base_stat}</h6>
+	}) : null;
+
+	const handleClick = async function(url){
+		moveDetail = (await axios.get(url)).data;
+		setShowModal(true);
+	}
+
+	const moves = poke ? poke.moves.map((m,key) => {
+		return <li key={key} onClick={() => handleClick(m.move.url)}>{m.move.name}</li>
+	}) : null;
+
+	const handleClose = function(){
+		setShowModal(false);	
+	}
 
 	console.log(poke);
 
@@ -25,19 +46,27 @@ function Pokemon({match, pokemons}){
 						<div className="image">
 							<h4>Pokemon Name : {capitalize(poke.name)}</h4>
 							<div className="actions"> 
-								<p><button className="button">Add to my pokemon list</button></p>
+								<p><Link className="button" to="/">&lt;&lt; Back</Link> <button className="button">Add to my pokemon list</button></p>
 							</div>
 							<img className="pokemon-image" alt={poke.name} src={poke.sprites.front_default}/>
 						</div>
 
 						<div className="stats">
+							<h4>Stats</h4>
 							<div>{stats ? stats : <img src={spinner} className="App-logo" alt="logo" />}</div>
+						</div>
+
+						<div className="moves">
+							<h4>Moves</h4>
+							<ul>{moves}</ul>
 						</div>
 			    	</div>
 			  </div>
 
 			</div>
-			</div> : <img src={spinner} className="App-logo" alt="logo" /> }
+			</div> : <div className="spinner"><img src={spinner} className="App-logo" alt="logo" /></div> }
+
+			<Modal show={showModal} moveDetail={moveDetail} handleClose={handleClose}></Modal>
 	</div>
 }
 
