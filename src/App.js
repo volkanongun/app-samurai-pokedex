@@ -7,6 +7,7 @@ import store from './store';
 
 import PokemonsList from "./components/PokemonsList"
 import Pokemon from "./components/Pokemon"
+import MyPokemonsList from "./components/MyPokemonsList"
 
 import './scss/normalize.css';
 import './scss/skeleton.css';
@@ -26,6 +27,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={PokemonsList}/>
             <Route path="/pokemon/:id" component={Pokemon}/>
+            <Route path="/mypokemons" component={MyPokemonsList}/>
           </Switch>
         </Router>
       </Provider>

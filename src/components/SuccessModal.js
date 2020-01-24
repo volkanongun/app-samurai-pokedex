@@ -1,6 +1,10 @@
 import React from 'react';
 
-const AbilityModal = ({ handleClose, show, abilityDetail }) => {
+import {Link} from "react-router-dom";
+
+import capitalize from '../utils';
+
+const SuccessModal = ({ handleClose, show, successDetail }) => {
   const showHideClassName = show ? "modal display-block" : "modal display-none";
 
   return (
@@ -10,10 +14,10 @@ const AbilityModal = ({ handleClose, show, abilityDetail }) => {
 
     		<button onClick={handleClose} className="button close-btn-mod"><strong>X</strong> close</button>
 
-    		<div className="overflow-mod">
+    		<div className="overflow-mod success">
     			<section className="modal-main">
-				 	{abilityDetail ? abilityDetail.effect_entries.map((e,key) => <span key={key}>{e.effect}</span>) : null}
-				 </section>
+					<p>Successfully added {successDetail ? capitalize(successDetail.name) : null} to <Link to="/mypokemons">My List</Link></p>
+				</section>
 		    </div>
     	</div>
 	       
@@ -21,4 +25,4 @@ const AbilityModal = ({ handleClose, show, abilityDetail }) => {
   );
 };
 
-export default AbilityModal;
+export default SuccessModal;

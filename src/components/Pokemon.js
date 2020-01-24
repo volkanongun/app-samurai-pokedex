@@ -8,20 +8,25 @@ import axios from 'axios'
 
 import Modal from './Modal';
 import AbilityModal from './AbilityModal';
+import SuccessModal from './SuccessModal';
+
 import capitalize from '../utils';
 
 let moveDetail;
 let abilityDetail;
+let successDetail;
+
+let pokemonList = [];
 
 function Pokemon({match, pokemons, history}){
 	
 	const [showModal, setShowModal] = useState(false);
 	const [showAbilityModal, setShowAbilityModal] = useState(false);
+	const [showSuccessModal, setShowSuccessModal] = useState(false);
 
-	const poke = pokemons.pokemons.filter(poke => poke.id === parseInt(match.params.id))[0];
+	const poke = pokemons.pokemons.filter(p => p.id === parseInt(match.params.id))[0];
 
 	const handleClick = async function(url){
-		console.log(url)
 		moveDetail = (await axios.get(url)).data;
 		setShowModal(true);
 	}
@@ -46,7 +51,7 @@ function Pokemon({match, pokemons, history}){
 	}) : null;
 
 	const moves = poke ? poke.moves.map((m,key) => {
-		return <li key={key} onClick={() => handleClick(m.move.url)}>{m.move.name}</li>
+		return <li key={key} onClick={() => handleClick(m.move.url)}>{key+1} - {m.move.name}</li>
 	}) : null;
 
 	const handleClose = function(){
@@ -55,6 +60,33 @@ function Pokemon({match, pokemons, history}){
 
 	const handleAbilityClose = function(){
 		setShowAbilityModal(false);	
+	}
+
+	const handleSuccessClose = function(){
+		setShowSuccessModal(false);	
+	}
+
+	const addPokemon = function(){
+
+		console.log(pokemonList)
+
+		if(!localStorage.getItem("pokemons")){
+			pokemonList.push(poke)
+			localStorage.setItem("pokemons", JSON.stringify(pokemonList));
+			setShowSuccessModal(true);
+			successDetail = poke;
+			return;
+		}
+
+		if(localStorage.getItem("pokemons")){
+			let localStoragePokes = JSON.parse(localStorage.getItem("pokemons"));
+			localStoragePokes.push(poke);
+			localStorage.setItem("pokemons", JSON.stringify(localStoragePokes));
+			successDetail = poke;
+		}
+
+		setShowSuccessModal(true);
+
 	}
 
 	console.log(poke);
@@ -66,9 +98,9 @@ function Pokemon({match, pokemons, history}){
 			    <div className="twelve columns">
 			    	<div className="pokemon-stats">
 						<div className="image">
-							<h4><strong>Pokemon</strong> : {capitalize(poke.name)}</h4>
+							<h4><strong>{poke.name}</strong></h4>
 							<div className="actions"> 
-								<p><Link className="button" to="/">&lt;&lt; Back</Link> <button className="button">Add to my pokemon list</button></p>
+								<p><Link className="button" to="/">&lt;&lt; Back</Link> <button className="button" onClick={addPokemon}>Add to my pokemon list</button> <Link className="button" to="/mypokemons">My pokemons</Link></p>
 							</div>
 							
 							<div>
@@ -105,22 +137,22 @@ function Pokemon({match, pokemons, history}){
 						</div>
 
 						<div className="stats">
-							<h4>Stats</h4>
+							<h4><strong>Stats</strong></h4>
 							<div>{stats ? stats : <img src={spinner} className="App-logo" alt="logo" />}</div>
 						</div>
 
 						<div className="abilities">
-							<h4>Abilities</h4>
+							<h4><strong>Abilities</strong></h4>
 							<div>{abilities}</div>
 						</div>
 
 						<div className="types">
-							<h4>Type</h4>
+							<h4><strong>Type</strong></h4>
 							<div>{types}</div>
 						</div>
 
 						<div className="moves">
-							<h4>Moves</h4>
+							<h4><strong>Moves</strong></h4>
 							<ul>{moves}</ul>
 						</div>
 			    	</div>
@@ -131,6 +163,7 @@ function Pokemon({match, pokemons, history}){
 
 			<Modal show={showModal} moveDetail={moveDetail} handleClose={handleClose}></Modal>
 			<AbilityModal show={showAbilityModal} abilityDetail={abilityDetail} handleClose={handleAbilityClose}></AbilityModal>
+			<SuccessModal show={showSuccessModal} successDetail={successDetail} handleClose={handleSuccessClose}></SuccessModal>
 	</div>
 }
 
