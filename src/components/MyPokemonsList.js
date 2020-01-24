@@ -1,22 +1,23 @@
-import React,{useEffect} from 'react';
+import React from 'react';
 
 import {Link} from "react-router-dom";
-import {connect} from 'react-redux';
-import {getPokemons} from '../actions/pokemons';
 
-import spinner from '../img/spinner.gif';
+import pokeball from '../img/pokeball.png';
 
 import PokemonSmall from './PokemonSmall';
 
-function MyPokemonsList({loading}) {
+const myPokemon = true;
+
+function MyPokemonsList({loading, history}) {
 
   const pokemons = JSON.parse(localStorage.getItem("pokemons"));
+  // console.log(pokemons);
 
   return (
     <div className="pokedex">
       <h1>My Pokemons</h1>
       <nav><Link className="button" to="/">Back to Pokedex</Link></nav>
-      <div>{<ul className="pokemons">{pokemons.map((poke,key) => <PokemonSmall pokemon={poke} key={key}></PokemonSmall>)}</ul>}
+      <div className="align-center">{pokemons.length >= 1 ? <ul className="pokemons">{pokemons.map((poke,key) => <PokemonSmall pokemon={poke} history={history} key={key} myPokemon={myPokemon}></PokemonSmall>)}</ul> : <h4><img src={pokeball} alt="pokeball"/>Add some pokemons to your list</h4>}
       </div>
     </div>
   );

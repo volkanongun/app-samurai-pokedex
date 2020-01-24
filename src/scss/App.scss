@@ -107,6 +107,30 @@ li.pokemon{
   background: #dcfddc!important;
 }
 
+.align-center{
+  text-align: center;
+}
+
+.delete-icon{
+  width: 20px;
+  height: 20px;
+}
+
+.pokemons{
+  .pokemon{
+    position: relative;
+    .delete-icon{
+
+      padding:1rem;
+      position: absolute;
+      right: 0;
+      top:0;
+      border-radius: 10px;
+      z-index: 1;
+    }
+  }
+}
+
 .pokemon-image{
   width: 150px
 }

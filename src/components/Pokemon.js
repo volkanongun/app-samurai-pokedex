@@ -1,5 +1,6 @@
 import React,{useState} from 'react';
 import spinner from '../img/spinner.gif';
+import pokeball from '../img/pokeball.png';
 
 import {Link} from "react-router-dom";
 import {connect} from 'react-redux';
@@ -10,15 +11,13 @@ import Modal from './Modal';
 import AbilityModal from './AbilityModal';
 import SuccessModal from './SuccessModal';
 
-import capitalize from '../utils';
-
 let moveDetail;
 let abilityDetail;
 let successDetail;
 
 let pokemonList = [];
 
-function Pokemon({match, pokemons, history}){
+function Pokemon({match, pokemons}){
 	
 	const [showModal, setShowModal] = useState(false);
 	const [showAbilityModal, setShowAbilityModal] = useState(false);
@@ -68,7 +67,7 @@ function Pokemon({match, pokemons, history}){
 
 	const addPokemon = function(){
 
-		console.log(pokemonList)
+		// console.log(pokemonList)
 
 		if(!localStorage.getItem("pokemons")){
 			pokemonList.push(poke)
@@ -100,7 +99,7 @@ function Pokemon({match, pokemons, history}){
 						<div className="image">
 							<h4><strong>{poke.name}</strong></h4>
 							<div className="actions"> 
-								<p><Link className="button" to="/">&lt;&lt; Back</Link> <button className="button" onClick={addPokemon}>Add to my pokemon list</button> <Link className="button" to="/mypokemons">My pokemons</Link></p>
+								<p><Link className="button" to="/">&lt;&lt; Back</Link> <button className="button" onClick={addPokemon}><img src={pokeball} alt="pokeball" style={{width: "20px"}}/> Add to my pokemon list</button> <Link className="button" to="/mypokemons">My pokemons</Link></p>
 							</div>
 							
 							<div>
