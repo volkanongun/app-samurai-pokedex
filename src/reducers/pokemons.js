@@ -3,6 +3,7 @@ import {
 	POKEMONS_FAILED,
 	POKEMON_LOADED,
 	POKEMON_FAILED,
+	EMPTY_POKEMONS_LIST
  } from '../actions/types';
 
 const initialState = {
@@ -25,6 +26,12 @@ export default function(state = initialState, action) {
 			return {
 				...state,
 				pokemons : [],
+				loading: false
+			}
+		case EMPTY_POKEMONS_LIST : 
+			return {
+				...state,
+				pokemons: [],
 				loading: false
 			}
 		case POKEMON_LOADED:

@@ -2,16 +2,16 @@ import React,{useEffect} from 'react';
 
 import {Link} from "react-router-dom";
 import {connect} from 'react-redux';
-import {getPokemons} from '../actions/pokemons';
+import {getPokemons,emptyPokemonsList} from '../actions/pokemons';
 
 import spinner from '../img/spinner.gif';
 
 import PokemonSmall from './PokemonSmall';
 
-function PokemonsList({getPokemons, pokemons, loading}) {
+function PokemonsList({getPokemons, pokemons, loading, emptyPokemonsList}) {
 
   useEffect(() => {
-      getPokemons(50);
+      emptyPokemonsList(getPokemons(50))
   }, [getPokemons]);
 
   return (
@@ -37,4 +37,4 @@ const mapStateToProps = state => {
 
 }
 
-export default connect(mapStateToProps, {getPokemons})(PokemonsList);
+export default connect(mapStateToProps, {getPokemons,emptyPokemonsList})(PokemonsList);

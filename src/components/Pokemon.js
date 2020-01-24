@@ -65,6 +65,8 @@ function Pokemon({match, pokemons}){
 		setShowSuccessModal(false);	
 	}
 
+	window.scrollTo(0, 0)
+
 	const addPokemon = function(){
 
 		// console.log(pokemonList)

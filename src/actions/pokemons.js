@@ -4,7 +4,8 @@ import {
 	POKEMONS_LOADED, 
 	POKEMONS_FAILED, 
 	POKEMON_LOADED, 
-	POKEMON_FAILED
+	POKEMON_FAILED,
+	EMPTY_POKEMONS_LIST
 } from './types';
 
 const pokemons = []
@@ -65,4 +66,14 @@ export const getPokemon = (id) => async dispatch => {
 	}
 }
 
-
+export const emptyPokemonsList = () => async dispatch => {
+	
+	try{
+		dispatch({
+			type: EMPTY_POKEMONS_LIST,
+			payload : []
+		})
+	}catch(err){
+		console.log(err)
+	}
+}
