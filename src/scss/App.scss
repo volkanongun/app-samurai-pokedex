@@ -67,7 +67,7 @@ img{
   vertical-align: middle;
 }
 
-button{
+.button {
   background: white;
 }
 
@@ -93,8 +93,7 @@ li.pokemon{
 }
 
 .pokemon-image{
-  width: 300px;
-  display: flex;
+  width: 150px
 }
 
 .spinner{
@@ -111,7 +110,7 @@ li.pokemon{
     margin-bottom: 2rem;
   }
 
-  .stats{
+  .stats, .types{
     background: #efefef;
     padding:4rem;
     border-radius:10px;
@@ -126,6 +125,23 @@ li.pokemon{
 
     img{
       display: inline-block;
+    }
+  }
+
+  .abilities{
+    background: #efefef;
+    padding:4rem;
+    border-radius:10px;
+
+    li{
+      color: #1EAEDB;
+        background: #fffefe;
+        padding:0 1rem;
+
+        &:hover{
+          text-decoration: underline;
+          cursor:pointer;
+        }
     }
   }
 
@@ -178,7 +194,7 @@ li.pokemon{
     position: absolute;
     top: -200px;
     z-index: 1;
-    transform : translate(-50%, -50%)
+    transform : translate(-50%, -50%);
 }
 
 .overflow{
@@ -200,7 +216,7 @@ li.pokemon{
 
 // mobile styles
 @media screen and (min-width: 620px){
-  .stats{
+  .stats,.abilities{
     float: left;
     margin-right: 3rem
   }
@@ -211,13 +227,19 @@ li.pokemon{
       li{
         display: inline-block;
         margin-right: 2rem
+      }
     }
-    }
+  }
+
+  .pokemon-image{
+    width: 200px
   }
 }
 
 @media screen and (min-width: 960px){
-
+  .pokemon-image{
+    width: 300px
+  }
 }
 
 @media screen and (min-width: 1200px){
