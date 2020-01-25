@@ -1,5 +1,6 @@
 import React from 'react';
 
+import {Link} from "react-router-dom";
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 
@@ -20,10 +21,8 @@ function App() {
   return (
     <div className="App">
       <Provider store={store}>
-
-        <img src={logo} className="App-logo" alt="logo" style={{width: "100%"}}/>
-
         <Router>
+          <Link to="/" style={{display: "block"}}><img src={logo} className="App-logo" alt="logo" style={{width: "100%"}}/></Link>
           <Switch>
             <Route exact path="/" component={PokemonsList}/>
             <Route path="/pokemon/:id" component={Pokemon}/>
