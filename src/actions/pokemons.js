@@ -67,14 +67,3 @@ export const getPokemon = (id) => async dispatch => {
 	}
 }
 
-export const emptyPokemonsList = () => async dispatch => {
-	
-	try{
-		dispatch({
-			type: EMPTY_POKEMONS_LIST,
-			payload : []
-		})
-	}catch(err){
-		console.log(err)
-	}
-}
