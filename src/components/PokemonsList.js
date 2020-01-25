@@ -10,7 +10,6 @@ import PokemonSmall from './PokemonSmall';
 
 const limit = 50;
 let offset = 0;
-const maxPaging = 20;
 
 function PokemonsList({getPokemons, pokemons, loading}) {
 
@@ -18,10 +17,10 @@ function PokemonsList({getPokemons, pokemons, loading}) {
     getPokemons(limit,offset)
   }, [getPokemons]);
 
-  console.log(limit, offset)
+  // console.log(limit, offset)
 
   const goForwardOnePage = function(){
-    console.log("go forward")
+    // console.log("go forward")
 
     offset += 50
 
@@ -32,7 +31,7 @@ function PokemonsList({getPokemons, pokemons, loading}) {
   }
 
   const goBackOnePage = function(){
-    console.log("go back")
+    // console.log("go back")
 
     offset -= 50
 
@@ -48,13 +47,13 @@ function PokemonsList({getPokemons, pokemons, loading}) {
       <h1>Pokedex</h1>
       
       <nav className="menu">
-        <a className="button" onClick={goBackOnePage}>&lt;</a> <Link className="button" to="/mypokemons">My Pokemons</Link> <a onClick={goForwardOnePage} className="button">&gt;</a></nav>
+        <button className="button" onClick={goBackOnePage}>&lt;</button> <Link className="button" to="/mypokemons">My Pokemons</Link> <button onClick={goForwardOnePage} className="button">&gt;</button></nav>
 
       <div>
         {!loading ? <ul className="pokemons">{pokemons.pokemons.map((poke,key) => <PokemonSmall pokemon={poke} key={key}></PokemonSmall>)}</ul> : <img src={spinner} className="App-logo" alt="logo" />}
       </div>
 
-      <footer className="menu"><a className="button" onClick={goBackOnePage}>&lt;</a> <a onClick={goForwardOnePage} className="button">&gt;</a></footer>
+      <footer className="menu"><button className="button" onClick={goBackOnePage}>&lt;</button> <button onClick={goForwardOnePage} className="button">&gt;</button></footer>
     </div>
   );
 }

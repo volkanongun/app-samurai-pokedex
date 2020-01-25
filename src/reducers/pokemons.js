@@ -2,18 +2,13 @@ import {
 	POKEMONS_LOADED,
 	POKEMONS_FAILED,
 	POKEMON_LOADED,
-	POKEMON_FAILED,
-	NEXT_PAGE,
-	PREVIOUS_PAGE
+	POKEMON_FAILED
  } from '../actions/types';
 
 const initialState = {
 	loading: true,
 	pokemons: [],
 	pokemon: {},
-	offset: 50,
-	page: 0,
-	maxPaging: 20
 }; 
 
 export default function(state = initialState, action) {
@@ -23,8 +18,6 @@ export default function(state = initialState, action) {
 		case POKEMONS_LOADED:
 			return {
 				...state,
-				offset: 50, 
-				page: 0,
 				loading: false,
 				pokemons: payload,
 			};
@@ -32,24 +25,18 @@ export default function(state = initialState, action) {
 			return {
 				...state,
 				pokemons : [],
-				offset: 50, 
-				page: 0,
 				loading: false
 			}
 		case POKEMON_LOADED:
 			return {
 				...state,
 				pokemon: payload,
-				offset: 50, 
-				page: 0,
 				loading: false,
 			};
-		case POKEMONS_FAILED:
+		case POKEMON_FAILED:
 			return {
 				...state,
 				pokemon: {},
-				offset: 50, 
-				page: 0,
 				loading: false
 			}
 		default : 

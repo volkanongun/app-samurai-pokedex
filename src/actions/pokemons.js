@@ -4,9 +4,7 @@ import {
 	POKEMONS_LOADED, 
 	POKEMONS_FAILED, 
 	POKEMON_LOADED, 
-	POKEMON_FAILED,
-	NEXT_PAGE,
-	PREVIOUS_PAGE
+	POKEMON_FAILED
 } from './types';
 
 
@@ -17,7 +15,7 @@ export const getPokemons = (limit, offset) => async dispatch => {
 
 		const URL = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`;
 
-		console.log(URL);
+		// console.log(URL);
 		
 		const res = await axios.get(URL)
 

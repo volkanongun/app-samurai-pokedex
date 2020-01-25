@@ -22,7 +22,7 @@ function Pokemon({match, pokemons, getPokemon, pokemon}){
 
 	useEffect(() => {
     	getPokemon(match.params.id)
-  	}, [getPokemon]);
+  	}, [getPokemon,match.params.id]);
 	
 	const [showModal, setShowModal] = useState(false);
 	const [showAbilityModal, setShowAbilityModal] = useState(false);
