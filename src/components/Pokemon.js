@@ -1,10 +1,11 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import spinner from '../img/spinner.gif';
 import pokeball from '../img/pokeball.png';
 
 import {Link} from "react-router-dom";
 import {connect} from 'react-redux';
 
+import {getPokemon} from '../actions/pokemons';
 import axios from 'axios'
 
 import Modal from './Modal';
@@ -17,7 +18,11 @@ let successDetail;
 
 let pokemonList = [];
 
-function Pokemon({match, pokemons}){
+function Pokemon({match, pokemons, getPokemon, pokemon}){
+
+	useEffect(() => {
+    	getPokemon(match.params.id)
+  	}, [getPokemon]);
 	
 	const [showModal, setShowModal] = useState(false);
 	const [showAbilityModal, setShowAbilityModal] = useState(false);
@@ -34,6 +39,8 @@ function Pokemon({match, pokemons}){
 		abilityDetail = (await axios.get(url)).data;
 		setShowAbilityModal(true);
 	}
+
+	// console.log(pokemon)
 
 	const stats = poke ? poke.stats.map((stat,key) => {
 		return <h6 key={key}><strong>{stat.stat.name}</strong> : {stat.base_stat}</h6>
@@ -65,8 +72,6 @@ function Pokemon({match, pokemons}){
 		setShowSuccessModal(false);	
 	}
 
-	window.scrollTo(0, 0)
-
 	const addPokemon = function(){
 
 		// console.log(pokemonList)
@@ -90,7 +95,7 @@ function Pokemon({match, pokemons}){
 
 	}
 
-	console.log(poke);
+	// console.log(poke);
 
 	return <div>
 		{ poke ? <div className="container">
@@ -171,8 +176,9 @@ function Pokemon({match, pokemons}){
 const mapStateToProps = state =>{
 
 	return {
-		pokemons: state.pokemons
+		pokemons: state.pokemons,
+		pokemon: state.pokemons.pokemon
 	}
 }
 
-export default connect(mapStateToProps, {})(Pokemon)
+export default connect(mapStateToProps, {getPokemon})(Pokemon)

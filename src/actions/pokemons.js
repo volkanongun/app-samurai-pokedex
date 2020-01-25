@@ -5,16 +5,21 @@ import {
 	POKEMONS_FAILED, 
 	POKEMON_LOADED, 
 	POKEMON_FAILED,
-	EMPTY_POKEMONS_LIST
+	NEXT_PAGE,
+	PREVIOUS_PAGE
 } from './types';
 
 
-export const getPokemons = (limit) => async dispatch => {
+export const getPokemons = (limit, offset) => async dispatch => {
 
 	try{
 		const pokemons = [];
 
-		const res = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=${limit}`)
+		const URL = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`;
+
+		console.log(URL);
+		
+		const res = await axios.get(URL)
 
 		// console.log(res.data.results, " ∆∆∆∆∆");
 
@@ -50,8 +55,6 @@ export const getPokemon = (id) => async dispatch => {
 	try{
 		const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)
 
-		console.log(res.data, " ∆∆∆")
-
 		dispatch({
 			type: POKEMON_LOADED,
 			payload : res.data
@@ -66,4 +69,5 @@ export const getPokemon = (id) => async dispatch => {
 		})
 	}
 }
+
 
