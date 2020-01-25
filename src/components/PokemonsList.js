@@ -22,7 +22,7 @@ function PokemonsList({getPokemons, pokemons, loading}) {
 
   const goForwardOnePage = function(){
     console.log("go forward")
-    
+
     offset += 50
 
     if(offset >= 1000)
@@ -47,7 +47,8 @@ function PokemonsList({getPokemons, pokemons, loading}) {
 
       <h1>Pokedex</h1>
       
-      <nav className="menu"><a className="button" onClick={goBackOnePage}>&lt;</a><Link className="button" to="/mypokemons">My Pokemons</Link> <a onClick={goForwardOnePage} className="button">&gt;</a></nav>
+      <nav className="menu">
+        <a className="button" onClick={goBackOnePage}>&lt;</a> <Link className="button" to="/mypokemons">My Pokemons</Link> <a onClick={goForwardOnePage} className="button">&gt;</a></nav>
 
       <div>
         {!loading ? <ul className="pokemons">{pokemons.pokemons.map((poke,key) => <PokemonSmall pokemon={poke} key={key}></PokemonSmall>)}</ul> : <img src={spinner} className="App-logo" alt="logo" />}
