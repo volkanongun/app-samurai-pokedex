@@ -107,7 +107,7 @@ function Pokemon({match, pokemons, getPokemon, pokemon, loading}){
 										  </tbody>
 										</table>
 
-										{ pokemon.sprites.front_female ? <table className="u-full-width">
+										{ pokemon.sprites && pokemon.sprites.front_female ? <table className="u-full-width">
 																				  <thead>
 																				    <tr>
 																				      <th>Front(Female)</th>
