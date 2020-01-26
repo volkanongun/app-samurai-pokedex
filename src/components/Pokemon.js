@@ -107,20 +107,20 @@ function Pokemon({match, pokemons, getPokemon, pokemon, loading}){
 										  </tbody>
 										</table>
 
-										<table className="u-full-width">
-										  <thead>
-										    <tr>
-										      <th>Front(Female)</th>
-										      <th>Back(Female)</th>
-										    </tr>
-										  </thead>
-										  <tbody>
-										    <tr>
-										      <td><img className="pokemon-image" alt={pokemon.name} src={pokemon.sprites ? pokemon.sprites.front_female : null}/></td>
-										      <td><img className="pokemon-image" alt={pokemon.name} src={pokemon.sprites ? pokemon.sprites.back_female : null}/></td>
-										    </tr>
-										  </tbody>
-										</table>
+										{ pokemon.sprites.front_female ? <table className="u-full-width">
+																				  <thead>
+																				    <tr>
+																				      <th>Front(Female)</th>
+																				      <th>Back(Female)</th>
+																				    </tr>
+																				  </thead>
+																				  <tbody>
+																				    <tr>
+																				      <td><img className="pokemon-image" alt={pokemon.name} src={pokemon.sprites ? pokemon.sprites.front_female : null}/></td>
+																				      <td><img className="pokemon-image" alt={pokemon.name} src={pokemon.sprites ? pokemon.sprites.back_female : null}/></td>
+																				    </tr>
+																				  </tbody>
+																				</table> : null}
 									</div>
 								</div>
 
