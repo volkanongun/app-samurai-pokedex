@@ -65,8 +65,6 @@ function PokemonsList({getPokemons, pokemons, loading}) {
 
 const mapStateToProps = state => {
 
-  console.log(state)
-
   return {
     pokemons : state.pokemons,
     loading : state.pokemons.loading
