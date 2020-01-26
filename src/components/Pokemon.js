@@ -18,7 +18,9 @@ let successDetail;
 
 let pokemonList = [];
 
-function Pokemon({match, pokemons, getPokemon, pokemon}){
+function Pokemon({match, pokemons, getPokemon, pokemon, loading}){
+
+	console.log(match.params.id);
 
 	useEffect(() => {
     	getPokemon(match.params.id)
@@ -40,25 +42,7 @@ function Pokemon({match, pokemons, getPokemon, pokemon}){
 		setShowAbilityModal(true);
 	}
 
-	// console.log(pokemon)
-
-	const stats = poke ? poke.stats.map((stat,key) => {
-		return <h6 key={key}><strong>{stat.stat.name}</strong> : {stat.base_stat}</h6>
-	}) : null;
-
-	const abilities = poke ? poke.abilities.map((a,key) => {
-		return <li key={key} onClick={() => handleAbilityClick(a.ability.url)}>{a.ability.name}</li>
-	}) : null;
-
-	const types = poke ? poke.types.map((t,key) => {
-		return <li key={key}>
-			<span><strong>Slot: </strong> {t.slot}</span>, <span><strong>Type: </strong> {t.type.name}</span>
-		</li>
-	}) : null;
-
-	const moves = poke ? poke.moves.map((m,key) => {
-		return <li key={key} onClick={() => handleClick(m.move.url)}>{key+1} - {m.move.name}</li>
-	}) : null;
+	console.log(pokemon)
 
 	const handleClose = function(){
 		setShowModal(false);	
@@ -77,18 +61,18 @@ function Pokemon({match, pokemons, getPokemon, pokemon}){
 		// console.log(pokemonList)
 
 		if(!localStorage.getItem("pokemons")){
-			pokemonList.push(poke)
+			pokemonList.push(pokemon)
 			localStorage.setItem("pokemons", JSON.stringify(pokemonList));
 			setShowSuccessModal(true);
-			successDetail = poke;
+			successDetail = pokemon;
 			return;
 		}
 
 		if(localStorage.getItem("pokemons")){
 			let localStoragePokes = JSON.parse(localStorage.getItem("pokemons"));
-			localStoragePokes.push(poke);
+			localStoragePokes.push(pokemon);
 			localStorage.setItem("pokemons", JSON.stringify(localStoragePokes));
-			successDetail = poke;
+			successDetail = pokemon;
 		}
 
 		setShowSuccessModal(true);
@@ -98,86 +82,96 @@ function Pokemon({match, pokemons, getPokemon, pokemon}){
 	// console.log(poke);
 
 	return <div>
-		{ poke ? <div className="container">
+			<div className="container">
 
-			  <div className="row">
-			    <div className="twelve columns">
-			    	<div className="pokemon-stats">
-						<div className="image">
-							<h4><strong>{poke.name}</strong></h4>
-							<div className="actions"> 
-								<p><Link className="button" to="/">&lt;&lt; Back</Link> <button className="button" onClick={addPokemon}><img src={pokeball} alt="pokeball" style={{width: "20px"}}/> Add to my pokemon list</button> <Link className="button" to="/mypokemons">My pokemons</Link></p>
-							</div>
-							
-							<div>
-								<table className="u-full-width">
-								  <thead>
-								    <tr>
-								      <th>Front(Male)</th>
-								      <th>Back(Male)</th>
-								    </tr>
-								  </thead>
-								  <tbody>
-								    <tr>
-								      <td><img className="pokemon-image" alt={poke.name} src={poke.sprites.front_default}/></td>
-								      <td><img className="pokemon-image" alt={poke.name} src={poke.sprites.back_default}/></td>
-								    </tr>
-								  </tbody>
-								</table>
+				{!loading ? <div className="row">
+					    <div className="twelve columns">
+					    	<div className="pokemon-stats">
+								<div className="image">
+									<h4><strong>{pokemon.name}</strong></h4>
+									<div className="actions"> 
+										<p><Link className="button" to="/">&lt;&lt; Back</Link> <button className="button" onClick={addPokemon}><img src={pokeball} alt="pokeball" style={{width: "20px"}}/> Add to my pokemon list</button> <Link className="button" to="/mypokemons">My pokemons</Link></p>
+									</div>
+									
+									<div>
+										<table className="u-full-width">
+										  <thead>
+										    <tr>
+										      <th>Front(Male)</th>
+										      <th>Back(Male)</th>
+										    </tr>
+										  </thead>
+										  <tbody>
+										    <tr>
+										      <td><img className="pokemon-image" alt={pokemon.name} src={pokemon.sprites.front_default}/></td>
+										      <td><img className="pokemon-image" alt={pokemon.name} src={pokemon.sprites.back_default}/></td>
+										    </tr>
+										  </tbody>
+										</table>
 
-								{poke.sprites.front_female ? <table className="u-full-width">
-								  <thead>
-								    <tr>
-								      <th>Front(Female)</th>
-								      <th>Back(Female)</th>
-								    </tr>
-								  </thead>
-								  <tbody>
-								    <tr>
-								      <td><img className="pokemon-image" alt={poke.name} src={poke.sprites.front_female}/></td>
-								      <td><img className="pokemon-image" alt={poke.name} src={poke.sprites.back_female}/></td>
-								    </tr>
-								  </tbody>
-								</table> : null}
-							</div>
-						</div>
+										{pokemon.sprites.front_female ? <table className="u-full-width">
+										  <thead>
+										    <tr>
+										      <th>Front(Female)</th>
+										      <th>Back(Female)</th>
+										    </tr>
+										  </thead>
+										  <tbody>
+										    <tr>
+										      <td><img className="pokemon-image" alt={pokemon.name} src={pokemon.sprites.front_female}/></td>
+										      <td><img className="pokemon-image" alt={pokemon.name} src={pokemon.sprites.back_female}/></td>
+										    </tr>
+										  </tbody>
+										</table> : null}
+									</div>
+								</div>
 
-						<div className="stats">
-							<h4><strong>Stats</strong></h4>
-							<div>{stats ? stats : <img src={spinner} className="App-logo" alt="logo" />}</div>
-						</div>
+								<div className="stats">
+									<h4><strong>Stats</strong></h4>
+									<div>{pokemon.stats.map((stat,key) => {
+										return <h6 key={key}><strong>{stat.stat.name}</strong> : {stat.base_stat}</h6>
+									})}</div>
+								</div>
 
-						<div className="abilities">
-							<h4><strong>Abilities</strong></h4>
-							<div>{abilities}</div>
-						</div>
+								<div className="abilities">
+									<h4><strong>Abilities</strong></h4>
+									<div>{pokemon.abilities.map((a,key) => {
+										return <li key={key} onClick={() => handleAbilityClick(a.ability.url)}>{a.ability.name}</li>
+									})}</div>
+								</div>
 
-						<div className="types">
-							<h4><strong>Type</strong></h4>
-							<div>{types}</div>
-						</div>
+								<div className="types">
+									<h4><strong>Type</strong></h4>
+									<div>{pokemon.types.map((t,key) => {
+										return <li key={key}>
+											<span><strong>Slot: </strong> {t.slot}</span>, <span><strong>Type: </strong> {t.type.name}</span>
+										</li>
+									})}</div>
+								</div>
 
-						<div className="moves">
-							<h4><strong>Moves</strong></h4>
-							<ul>{moves}</ul>
-						</div>
-			    	</div>
-			  </div>
-
-			</div>
-			</div> : <div className="spinner"><img src={spinner} className="App-logo" alt="logo" /></div> }
+								<div className="moves">
+									<h4><strong>Moves</strong></h4>
+									<ul>{pokemon.moves.map((m,key) => {
+										return <li key={key} onClick={() => handleClick(m.move.url)}>{key+1} - {m.move.name}</li>
+									})}</ul>
+								</div>
+					    	</div>
+					  </div>
+					</div> : <p className="align-center"><img src={spinner} className="App-logo" alt="logo" /></p>}
 
 			<Modal show={showModal} moveDetail={moveDetail} handleClose={handleClose}></Modal>
 			<AbilityModal show={showAbilityModal} abilityDetail={abilityDetail} handleClose={handleAbilityClose}></AbilityModal>
 			<SuccessModal show={showSuccessModal} successDetail={successDetail} handleClose={handleSuccessClose}></SuccessModal>
+		</div>
 	</div>
 }
 
-const mapStateToProps = state =>{
+const mapStateToProps = state => {
 
 	return {
 		pokemons: state.pokemons,
-		pokemon: state.pokemons.pokemon
+		pokemon: state.pokemons.pokemon,
+		loading: state.pokemons.loading
 	}
 }
 
