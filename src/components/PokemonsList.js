@@ -41,6 +41,8 @@ function PokemonsList({getPokemons, pokemons, loading}) {
     getPokemons(limit,offset)
   }
 
+  console.log(loading)
+
   return (
     <div className="pokedex">
 
@@ -50,8 +52,10 @@ function PokemonsList({getPokemons, pokemons, loading}) {
         {offset !== 0 ? <button className="button" onClick={goBackOnePage}>&lt; Previous Page</button>: null} <Link className="button" to="/mypokemons">My Pokemons</Link> <button onClick={goForwardOnePage} className="button">&gt; Next Page</button>
       </nav>
 
+      {loading ? <p className="align-center"><img src={spinner} className="App-logo" alt="logo" /></p> : null}
+
       <div>
-        {!loading ? <ul className="pokemons">{pokemons.pokemons.map((poke,key) => <PokemonSmall pokemon={poke} key={key}></PokemonSmall>)}</ul> : <p><img src={spinner} className="App-logo" alt="logo" /></p>}
+        {<ul className="pokemons">{pokemons.pokemons.map((poke,key) => <PokemonSmall pokemon={poke} key={key}></PokemonSmall>)}</ul>}
       </div>
 
       <footer className="menu">{offset !== 0 ? <button className="button" onClick={goBackOnePage}>&lt; Previous Page</button>: null} <button onClick={goForwardOnePage} className="button">&gt; Next Page</button></footer>
@@ -61,9 +65,11 @@ function PokemonsList({getPokemons, pokemons, loading}) {
 
 const mapStateToProps = state => {
 
+  console.log(state)
+
   return {
     pokemons : state.pokemons,
-    loading : state.loading
+    loading : state.pokemons.loading
   }
 
 }
