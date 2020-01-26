@@ -20,7 +20,7 @@ function MyPokemonsList({loading, history}) {
     <div className="pokedex">
       <h1>My Pokemons</h1>
       <nav><button className="button" onClick={handleClick}>Back to Pokedex</button></nav>
-      <div className="align-center">{pokemons.length >= 1 ? <ul className="pokemons">{pokemons.map((poke,key) => <PokemonSmall pokemon={poke} history={history} key={key} myPokemon={myPokemon}></PokemonSmall>)}</ul> : <h4><img src={pokeball} alt="pokeball"/>Add some pokemons to your list</h4>}
+      <div className="align-center">{pokemons && pokemons.length >= 1 ? <ul className="pokemons">{pokemons.map((poke,key) => <PokemonSmall pokemon={poke} history={history} key={key} myPokemon={myPokemon}></PokemonSmall>)}</ul> : <h4><img src={pokeball} alt="pokeball"/>Add some pokemons to your list</h4>}
       </div>
     </div>
   );
