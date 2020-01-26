@@ -47,13 +47,14 @@ function PokemonsList({getPokemons, pokemons, loading}) {
       <h1>Pokedex</h1>
       
       <nav className="menu">
-        <button className="button" onClick={goBackOnePage}>&lt;</button> <Link className="button" to="/mypokemons">My Pokemons</Link> <button onClick={goForwardOnePage} className="button">&gt;</button></nav>
+        {offset !== 0 ? <button className="button" onClick={goBackOnePage}>&lt; Previous Page</button>: null} <Link className="button" to="/mypokemons">My Pokemons</Link> <button onClick={goForwardOnePage} className="button">&gt; Next Page</button>
+      </nav>
 
       <div>
-        {!loading ? <ul className="pokemons">{pokemons.pokemons.map((poke,key) => <PokemonSmall pokemon={poke} key={key}></PokemonSmall>)}</ul> : <img src={spinner} className="App-logo" alt="logo" />}
+        {!loading ? <ul className="pokemons">{pokemons.pokemons.map((poke,key) => <PokemonSmall pokemon={poke} key={key}></PokemonSmall>)}</ul> : <p><img src={spinner} className="App-logo" alt="logo" /></p>}
       </div>
 
-      <footer className="menu"><button className="button" onClick={goBackOnePage}>&lt;</button> <button onClick={goForwardOnePage} className="button">&gt;</button></footer>
+      <footer className="menu">{offset !== 0 ? <button className="button" onClick={goBackOnePage}>&lt; Previous Page</button>: null} <button onClick={goForwardOnePage} className="button">&gt; Next Page</button></footer>
     </div>
   );
 }
