@@ -24,7 +24,7 @@ function Pokemon({match, pokemons, getPokemon, pokemon, loading}){
 
 	useEffect(() => {
     	getPokemon(match.params.id)
-  	}, [getPokemon,match.params.id]);
+  	}, [getPokemon, match.params.id]);
 	
 	const [showModal, setShowModal] = useState(false);
 	const [showAbilityModal, setShowAbilityModal] = useState(false);
@@ -41,8 +41,6 @@ function Pokemon({match, pokemons, getPokemon, pokemon, loading}){
 		abilityDetail = (await axios.get(url)).data;
 		setShowAbilityModal(true);
 	}
-
-	console.log(pokemon)
 
 	const handleClose = function(){
 		setShowModal(false);	
@@ -84,7 +82,7 @@ function Pokemon({match, pokemons, getPokemon, pokemon, loading}){
 	return <div>
 			<div className="container">
 
-				{!loading ? <div className="row">
+				{pokemon && !loading ? <div className="row">
 					    <div className="twelve columns">
 					    	<div className="pokemon-stats">
 								<div className="image">
@@ -103,13 +101,13 @@ function Pokemon({match, pokemons, getPokemon, pokemon, loading}){
 										  </thead>
 										  <tbody>
 										    <tr>
-										      <td><img className="pokemon-image" alt={pokemon.name} src={pokemon.sprites.front_default}/></td>
-										      <td><img className="pokemon-image" alt={pokemon.name} src={pokemon.sprites.back_default}/></td>
+										      <td><img className="pokemon-image" alt={pokemon.name} src={pokemon.sprites ? pokemon.sprites.front_default : null}/></td>
+										      <td><img className="pokemon-image" alt={pokemon.name} src={pokemon.sprites ? pokemon.sprites.back_default : null}/></td>
 										    </tr>
 										  </tbody>
 										</table>
 
-										{pokemon.sprites.front_female ? <table className="u-full-width">
+										<table className="u-full-width">
 										  <thead>
 										    <tr>
 										      <th>Front(Female)</th>
@@ -118,42 +116,42 @@ function Pokemon({match, pokemons, getPokemon, pokemon, loading}){
 										  </thead>
 										  <tbody>
 										    <tr>
-										      <td><img className="pokemon-image" alt={pokemon.name} src={pokemon.sprites.front_female}/></td>
-										      <td><img className="pokemon-image" alt={pokemon.name} src={pokemon.sprites.back_female}/></td>
+										      <td><img className="pokemon-image" alt={pokemon.name} src={pokemon.sprites ? pokemon.sprites.front_female : null}/></td>
+										      <td><img className="pokemon-image" alt={pokemon.name} src={pokemon.sprites ? pokemon.sprites.back_female : null}/></td>
 										    </tr>
 										  </tbody>
-										</table> : null}
+										</table>
 									</div>
 								</div>
 
 								<div className="stats">
 									<h4><strong>Stats</strong></h4>
-									<div>{pokemon.stats.map((stat,key) => {
+									<div>{pokemon.stats ? pokemon.stats.map((stat,key) => {
 										return <h6 key={key}><strong>{stat.stat.name}</strong> : {stat.base_stat}</h6>
-									})}</div>
+									}) : null}</div>
 								</div>
 
 								<div className="abilities">
 									<h4><strong>Abilities</strong></h4>
-									<div>{pokemon.abilities.map((a,key) => {
+									<div>{pokemon.abilities ? pokemon.abilities.map((a,key) => {
 										return <li key={key} onClick={() => handleAbilityClick(a.ability.url)}>{a.ability.name}</li>
-									})}</div>
+									}) : null}</div>
 								</div>
 
 								<div className="types">
 									<h4><strong>Type</strong></h4>
-									<div>{pokemon.types.map((t,key) => {
+									<div>{pokemon.types ? pokemon.types.map((t,key) => {
 										return <li key={key}>
 											<span><strong>Slot: </strong> {t.slot}</span>, <span><strong>Type: </strong> {t.type.name}</span>
 										</li>
-									})}</div>
+									}) : null}</div>
 								</div>
 
 								<div className="moves">
 									<h4><strong>Moves</strong></h4>
-									<ul>{pokemon.moves.map((m,key) => {
+									<ul>{pokemon.moves ? pokemon.moves.map((m,key) => {
 										return <li key={key} onClick={() => handleClick(m.move.url)}>{key+1} - {m.move.name}</li>
-									})}</ul>
+									}) : null}</ul>
 								</div>
 					    	</div>
 					  </div>
